@@ -82,3 +82,29 @@ def generate_randomized_surrounding_points(
         )
         
     return points
+
+
+def generate_random_targets(
+    num_targets: int,
+    lat_min: float = 22.0,
+    lat_max: float = 25.0,
+    lon_min: float = 119.0,
+    lon_max: float = 122.0
+) -> List[Coordinate]:
+    """
+    Generate a list of random targets (Coordinate objects) within the specified latitude and longitude range.
+    
+    :param num_targets: The number of target coordinates to generate
+    :param lat_min: Minimum latitude limit
+    :param lat_max: Maximum latitude limit
+    :param lon_min: Minimum longitude limit
+    :param lon_max: Maximum longitude limit
+    :return: A list of Coordinate objects
+    """
+    targets = []
+    for _ in range(num_targets):
+        lat = random.uniform(lat_min, lat_max)
+        lon = random.uniform(lon_min, lon_max)
+        targets.append(Coordinate(latitude=lat, longitude=lon))
+    return targets
+

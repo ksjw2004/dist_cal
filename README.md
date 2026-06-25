@@ -66,13 +66,15 @@ $$\lambda_2 = \lambda_1 + \operatorname{atan2}\left(\sin\theta \cdot \sin\delta 
 dist_cal/
 ├── pyproject.toml         # uv 專案設定檔
 ├── main.py                # 主程式入口 (CLI 介面)
-├── demo.ipynb             # Jupyter Notebook 示範與視覺化
+├── demo.ipynb             # Jupyter Notebook 單一目標示範與視覺化
+├── generate_targets.ipynb # Jupyter Notebook 批次隨機目標生成與計算
+├── surrounding_coordinates.csv # 批次目標計算結果輸出 CSV 檔
 ├── README.md              # 本說明文件
 ├── src/
 │   └── ship_navigator/
 │       ├── __init__.py    # 模組公開 API 導出
 │       ├── models.py      # 資料結構模型 (Coordinate, SurroundingPoint)
-│       └── calculator.py  # 座標運算核心 (大圓公式、隨機距離生成)
+│       └── calculator.py  # 座標運算核心 (大圓公式、隨機距離生成、隨機目標生成)
 └── tests/
     └── test_calculator.py # 單元測試
 ```
@@ -131,18 +133,22 @@ dist_cal/
 * `--min-dist`: 調整最小隨機距離 (預設 `5.0` 公里)
 * `--max-dist`: 調整最大隨機距離 (預設 `15.0` 公里)
 
-### 4. 使用 Jupyter Notebook 呼叫
+### 4. 使用 Jupyter Notebook 進行單一目標示範
 
-本專案附帶了一個互動式的 Jupyter Notebook 示範檔：[demo.ipynb](file:///Users/jesse/Documents/python/dist_cal/demo.ipynb)。
+本專案附帶了一個互動式的 Jupyter Notebook 示範檔：[demo.ipynb](file:///Users/jesse/Documents/python/dist_cal/demo.ipynb)，用以展示單一目標船艦的周圍點生成與視覺化。
 
 **使用步驟：**
-1. **安裝 ipykernel**（讓 Jupyter 能夠使用本專案虛擬環境執行）：
+1. **安裝 ipykernel 與相關套件**：
    ```bash
-   .venv/bin/pip install ipykernel
+   .venv/bin/pip install ipykernel matplotlib
    ```
-2. **開啟 Notebook**：在您的編輯器（如 Cursor、VSCode 或 Jupyter Lab）中點擊並開啟 [demo.ipynb](file:///Users/jesse/Documents/python/dist_cal/demo.ipynb)。
-3. **選擇核心 (Kernel)**：將執行核心指派為專案下的虛擬環境 `.venv`。
-4. **執行單元格**：即可互動式呼叫函式並繪製二維分佈圖（需安裝 `matplotlib` 進行視覺化）。
+2. **開啟 Notebook**：開啟 [demo.ipynb](file:///Users/jesse/Documents/python/dist_cal/demo.ipynb)。
+3. **選擇核心 (Kernel)**：將核心設為本專案的虛擬環境 `.venv`。
+4. **執行所有單元格**：即可看到 36 個方位點的計算結果與二維散佈圖。
+
+### 5. 批次隨機目標生成與計算
+
+本專案另提供批次處理的 Jupyter Notebook 說明檔：[generate_targets.ipynb](file:///Users/jesse/Documents/python/dist_cal/generate_targets.ipynb)。它可以在指定經緯度範圍內隨機生成 100 個目標，並為每個目標計算每 10 度方位的周圍座標點，最後將 3600 個座標點輸出至 [surrounding_coordinates.csv](file:///Users/jesse/Documents/python/dist_cal/surrounding_coordinates.csv)。
 
 ---
 
@@ -156,9 +162,9 @@ dist_cal/
 ```
 若全部測試通過，您會看到如下輸出：
 ```text
-....
+.....
 ----------------------------------------------------------------------
-Ran 4 tests in 0.001s
+Ran 5 tests in 0.001s
 
 OK
 ```

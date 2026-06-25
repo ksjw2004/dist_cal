@@ -1,12 +1,11 @@
 import unittest
-import math
 import sys
 from pathlib import Path
 
 # Add src/ directory to python path for importing ship_navigator directly
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from ship_navigator import Coordinate, calculate_destination, generate_randomized_surrounding_points
+from ship_navigator import Coordinate, calculate_destination, generate_randomized_surrounding_points, generate_random_targets
 
 class TestShipNavigator(unittest.TestCase):
     
@@ -77,5 +76,24 @@ class TestShipNavigator(unittest.TestCase):
             self.assertTrue(-90.0 <= pt.coordinate.latitude <= 90.0)
             self.assertTrue(-180.0 <= pt.coordinate.longitude <= 180.0)
 
+    def test_generate_random_targets(self):
+        lat_min, lat_max = 22.0, 25.0
+        lon_min, lon_max = 119.0, 122.0
+        num_targets = 100
+        
+        targets = generate_random_targets(
+            num_targets=num_targets,
+            lat_min=lat_min,
+            lat_max=lat_max,
+            lon_min=lon_min,
+            lon_max=lon_max
+        )
+        
+        self.assertEqual(len(targets), num_targets)
+        for target in targets:
+            self.assertTrue(lat_min <= target.latitude <= lat_max)
+            self.assertTrue(lon_min <= target.longitude <= lon_max)
+
 if __name__ == "__main__":
     unittest.main()
+

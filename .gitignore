@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Project outputs & Jupyter
+surrounding_coordinates.csv
+.ipynb_checkpoints/
